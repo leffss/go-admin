@@ -1,0 +1,206 @@
+definitions:
+  app.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: api 文档
+  license:
+    name: MIT
+    url: https://github.com/leffss/go-admin/blob/master/LICENSE
+  termsOfService: https://github.com/leffss/go-admin
+  title: go-admin
+  version: 1.0.0
+paths:
+  /api/admin/test:
+    get:
+      description: 测试
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 测试
+      tags:
+      - admin
+  /api/admin/test/{id}:
+    get:
+      description: 添加一个测试后台任务
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 添加一个测试后台任务
+      tags:
+      - admin
+  /api/oauth/info:
+    get:
+      description: 当前用户信息，包含权限信息
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 当前用户信息
+      tags:
+      - 认证
+  /api/oauth/login:
+    post:
+      consumes:
+      - application/json
+      description: 登陆获取 TOKEN
+      parameters:
+      - description: 用户名
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: 密码
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 登陆
+      tags:
+      - 认证
+  /api/oauth/logout:
+    post:
+      description: 由于 JWT 机制的原因，退出操作已无意义，这个接口只是配合前端而已
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 退出
+      tags:
+      - 认证
+  /api/profile/information:
+    put:
+      description: 修改个人信息
+      parameters:
+      - description: 姓名
+        in: body
+        name: name
+        schema:
+          type: string
+      - description: 手机
+        in: body
+        name: mobile
+        schema:
+          type: integer
+      - description: 邮箱
+        in: body
+        name: email
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 修改个人信息
+      tags:
+      - 个人中心
+  /api/profile/password:
+    put:
+      description: 修改个人密码
+      parameters:
+      - description: 旧密码
+        in: body
+        name: old_password
+        required: true
+        schema:
+          type: string
+      - description: 新密码
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      - description: 确认密码
+        in: body
+        name: confirm_password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 修改个人密码
+      tags:
+      - 个人中心
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

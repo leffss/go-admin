@@ -1,0 +1,9 @@
+.github
+.gitlab
+.idea
+.gitlab-ci.yml
+Jenkinsfile
+runtime
+.air.conf
+air.txt
+swag.txt

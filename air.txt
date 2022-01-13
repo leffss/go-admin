@@ -1,0 +1,2 @@
+go get -u github.com/cosmtrek/air
+air -c .air.conf
